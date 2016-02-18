@@ -7,7 +7,6 @@ from bs4 import BeautifulSoup as bs
 
 POSITIVE_FILE = "/home/vatsala/py-scripts/misc_scripts/review_sentiment/positive.txt"
 NEGATIVE_FILE = "/home/vatsala/py-scripts/misc_scripts/review_sentiment/negative.txt"
-punc = string.punctuation
 
 def extract_reviews(soup):
     review_head = [str(review.findAll('p')[0].get_text()) for review in soup.findAll('div', class_ ='r-detail')]
