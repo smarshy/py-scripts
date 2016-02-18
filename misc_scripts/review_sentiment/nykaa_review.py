@@ -15,6 +15,10 @@ if __name__ == '__main__':
     url = 'http://www.nykaa.com/bath-and-body/nivea-body-lotion-extra-whitening-cell-repair-uv-protect-vit-c.html?root=catg_Nykaas%20Choice&ptype=product&brand=catg_nykaas+choice'
     try:
         reviews = extract_reviews(url)
+        if len(reviews['review_head']) != 0:
+            print "not empty"
+        else:
+            print "Either this product has no reviews or this is not a valid product page"
     except:
         print "Unknown/Incorrect url! Please try with a different one"
         sys.exit()
