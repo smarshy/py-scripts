@@ -1,10 +1,12 @@
 import sys
 import urllib2
 import string
+import re
 from bs4 import BeautifulSoup as bs
 
 POSITIVE_FILE = "/home/vatsala/py-scripts/misc_scripts/review_sentiment/positive.txt"
 NEGATIVE_FILE = "/home/vatsala/py-scripts/misc_scripts/review_sentiment/negative.txt"
+punc = string.punctuation
 
 def extract_reviews(soup):
     review_head = [str(review.findAll('p')[0].get_text()) for review in soup.findAll('div', class_ ='r-detail')]
@@ -37,7 +39,9 @@ def compute_sentiment(review_component, negative_words, positive_words):
         if review is None:
             continue
         else:
-            for word in review.split(' '):
+            words = re.split('\W+', review)
+            for word in words:
+                print word
                 if word.lower() in negative_words:
                     negative += 1
                 if word.lower() in positive_words:
@@ -55,6 +59,9 @@ def find_sentiment(reviews, sentiment_map):
     comment_value = compute_sentiment(review_content, negative_words, positive_words)
     positive = head_value['positive'] + 0.8 * comment_value['positive']
     negative = head_value['negative'] + 0.8 * comment_value['negative']
+
+    print positive 
+    print negative
 
     if positive > negative:
         return "positive"
