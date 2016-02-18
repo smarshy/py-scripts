@@ -2,6 +2,7 @@ import sys
 import urllib2
 import string
 import re
+import math
 from bs4 import BeautifulSoup as bs
 
 POSITIVE_FILE = "/home/vatsala/py-scripts/misc_scripts/review_sentiment/positive.txt"
@@ -41,7 +42,6 @@ def compute_sentiment(review_component, negative_words, positive_words):
         else:
             words = re.split('\W+', review)
             for word in words:
-                print word
                 if word.lower() in negative_words:
                     negative += 1
                 if word.lower() in positive_words:
@@ -60,29 +60,26 @@ def find_sentiment(reviews, sentiment_map):
     positive = head_value['positive'] + 0.8 * comment_value['positive']
     negative = head_value['negative'] + 0.8 * comment_value['negative']
 
-    print positive 
-    print negative
-
-    if positive > negative:
-        return "positive"
+    if math.fabs(positive - negative) <= 2.5:
+        return "debatable"
     elif positive < negative:
         return "negative"
     else:
-        return "equal"
+        return "positive"
 
 if __name__ == '__main__':
-    url = 'http://www.nykaa.com/bath-and-body/nivea-body-lotion-extra-whitening-cell-repair-uv-protect-vit-c.html?root=catg_Nykaas%20Choice&ptype=product&brand=catg_nykaas+choice'
+    url = 'http://www.nykaa.com/bath-and-body/bath/showergels/neutrogena-rainbath-refreshing-shower-and-bath-gel.html?root=catg&ptype=product'
     
     try:
         html_doc = urllib2.urlopen(url)
         soup = bs(html_doc.read(), 'html.parser')
         reviews = extract_reviews(soup)
         rating = extract_rating(soup)
+        print
+        print "Overall rating is " + str(rating) 
 
         if len(reviews['review_head']) != 0:
-            sentiment_map = get_sentiment_list()
-            print
-            print "Overall rating is " + str(rating)           
+            sentiment_map = get_sentiment_list()          
             print "Recent reviews are largely " + find_sentiment(reviews, sentiment_map) + " in sentiment"
             print
         else:
