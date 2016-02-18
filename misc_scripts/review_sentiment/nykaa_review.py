@@ -1,3 +1,4 @@
+import sys
 import urllib2
 from bs4 import BeautifulSoup as bs
 
@@ -12,5 +13,9 @@ def extract_reviews(url):
 
 if __name__ == '__main__':
     url = 'http://www.nykaa.com/bath-and-body/nivea-body-lotion-extra-whitening-cell-repair-uv-protect-vit-c.html?root=catg_Nykaas%20Choice&ptype=product&brand=catg_nykaas+choice'
-    reviews = extract_reviews(url)
+    try:
+        reviews = extract_reviews(url)
+    except:
+        print "Unknown/Incorrect url! Please try with a different one"
+        sys.exit()
     print reviews
