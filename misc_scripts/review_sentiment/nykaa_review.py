@@ -11,6 +11,11 @@ def extract_reviews(soup):
     review_content = [str(review.findAll('p')[1].get_text()) for review in soup.findAll('div', class_ ='r-detail')]
     return {'review_head': review_head, 'review_content': review_content}
 
+def extract_rating(soup):
+    rating = soup.find('div', class_ ='product-shop')
+    p_container = rating.find('p', class_ ='reviews')
+    return str(p_container.find('meta')['content']) 
+
 def get_file_data(filename):
     inFile = open(filename, 'r', 0)
     line = inFile.readline()
@@ -65,11 +70,14 @@ if __name__ == '__main__':
         html_doc = urllib2.urlopen(url)
         soup = bs(html_doc.read(), 'html.parser')
         reviews = extract_reviews(soup)
+        rating = extract_rating(soup)
 
         if len(reviews['review_head']) != 0:
             sentiment_map = get_sentiment_list()
             print
+            print "Overall rating is " + str(rating)           
             print "Recent reviews are largely " + find_sentiment(reviews, sentiment_map) + " in sentiment"
+            print
         else:
             print "Either this product has no reviews or this is not a valid product page"
 
