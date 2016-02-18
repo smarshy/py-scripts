@@ -50,12 +50,15 @@ def find_sentiment(reviews, sentiment_map):
 
     head_value = compute_sentiment(review_head, negative_words, positive_words)
     comment_value = compute_sentiment(review_content, negative_words, positive_words)
-    print head_value
-    print comment_value
     positive = head_value['positive'] + 0.8 * comment_value['positive']
     negative = head_value['negative'] + 0.8 * comment_value['negative']
-    print positive 
-    print negative
+
+    if positive > negative:
+        return "positive"
+    elif positive < negative:
+        return "negative"
+    else:
+        return "equal"
 
 if __name__ == '__main__':
     url = 'http://www.nykaa.com/bath-and-body/nivea-body-lotion-extra-whitening-cell-repair-uv-protect-vit-c.html?root=catg_Nykaas%20Choice&ptype=product&brand=catg_nykaas+choice'
@@ -63,7 +66,8 @@ if __name__ == '__main__':
         reviews = extract_reviews(url)
         if len(reviews['review_head']) != 0:
             sentiment_map = get_sentiment_list()
-            find_sentiment(reviews, sentiment_map)
+            print
+            print " Recent reviews are largely " + find_sentiment(reviews, sentiment_map) + " in sentiment"
         else:
             print "Either this product has no reviews or this is not a valid product page"
     except:
