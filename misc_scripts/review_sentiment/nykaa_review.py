@@ -68,7 +68,11 @@ def find_sentiment(reviews, sentiment_map):
         return "positive"
 
 if __name__ == '__main__':
-    url = 'http://www.nykaa.com/bath-and-body/bath/showergels/neutrogena-rainbath-refreshing-shower-and-bath-gel.html?root=catg&ptype=product'
+
+    url = raw_input("\nEnter product url to get sentimental analysis based on recent reviews\n")
+    if not url:
+        print "You did not enter a url! Exiting...."
+        sys.exit()
     
     try:
         html_doc = urllib2.urlopen(url)
