@@ -38,7 +38,6 @@ def compute_sentiment(review_component, negative_words, positive_words):
                 if word.lower() in negative_words:
                     negative += 1
                 if word.lower() in positive_words:
-                    print word
                     positive += 1
     return {'positive': positive, 'negative': negative}
      
@@ -53,7 +52,10 @@ def find_sentiment(reviews, sentiment_map):
     comment_value = compute_sentiment(review_content, negative_words, positive_words)
     print head_value
     print comment_value
-
+    positive = head_value['positive'] + 0.8 * comment_value['positive']
+    negative = head_value['negative'] + 0.8 * comment_value['negative']
+    print positive 
+    print negative
 
 if __name__ == '__main__':
     url = 'http://www.nykaa.com/bath-and-body/nivea-body-lotion-extra-whitening-cell-repair-uv-protect-vit-c.html?root=catg_Nykaas%20Choice&ptype=product&brand=catg_nykaas+choice'
