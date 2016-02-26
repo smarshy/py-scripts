@@ -18,11 +18,15 @@ if __name__ == '__main__':
 
 	url = "http://api.zippopotam.us/" + str(ccode).lower() + "/" + str(zip_code) 
 
-	
-	content = json.load(urllib2.urlopen(url))
-	if content:
-		print "\nYou may be around "
-		places = content['places']
-		for place in places:
-			print place['place name'] + ", " + place['state'] + ", " + content['country']
+	try:
+		content = json.load(urllib2.urlopen(url))
+		if content:
+			print "\nYou may be around "
+			places = content['places']
+			for place in places:
+				print place['place name'] + ", " + place['state'] + ", " + content['country']
 		print
+	except:
+		print "\nPlease enter valid values. The database might be missing. Visit API to see supported countries"
+		print
+
