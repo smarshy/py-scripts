@@ -9,9 +9,9 @@ def get_responses(url):
 
 if __name__ == '__main__':
 
-	username = "smarshy"
 	statistics = {}
-	url = "https://api.github.com/search/issues?q=author:smarshy+type:"
+	username = raw_input("\nEnter github username\n")
+	url = "https://api.github.com/search/issues?q=author:" + username + "+type:"
 
 	url1 = url + "issue"
 	url2 = url + "issue+is:closed"
