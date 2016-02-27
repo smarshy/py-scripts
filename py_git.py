@@ -1,4 +1,5 @@
 import requests
+import sys
 
 def get_responses(url):
 
@@ -20,13 +21,17 @@ if __name__ == '__main__':
 	url6 = url + "pr+is:closed+is:unmerged"
 	url7 = url + "pr+is:closed+is:merged"
 
-	statistics['Total Issues'] = get_responses(url1)		
-	statistics['Closed Issues'] = get_responses(url2)
-	statistics['Open Issues'] = get_responses(url3)	
-	statistics['Open PRs'] = get_responses(url5)
-	statistics['Unmerged PRs'] = get_responses(url6)
-	statistics['Merged PRs'] = get_responses(url7)
-	statistics['Total PRs'] = get_responses(url4)
+	try:
+		statistics['Total Issues'] = get_responses(url1)
+		statistics['Closed Issues'] = get_responses(url2)
+		statistics['Open Issues'] = get_responses(url3)
+		statistics['Open PRs'] = get_responses(url5)
+		statistics['Unmerged PRs'] = get_responses(url6)
+		statistics['Merged PRs'] = get_responses(url7)
+		statistics['Total PRs'] = get_responses(url4)
+	except:
+		print "Check if username is valid/internet connection"
+		sys.exit()
 
 	print
 	print "Statistics for user " + str(username)
