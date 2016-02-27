@@ -1,12 +1,14 @@
 import requests
 import sys
 
+#getting url response using requests API
 def get_responses(url):
 
 	r = requests.get(url)
 	response = r.json()
 	return response['items']
 
+#main function
 if __name__ == '__main__':
 
 	username = raw_input("\nEnter github username\n")

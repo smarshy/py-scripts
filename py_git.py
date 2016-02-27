@@ -1,12 +1,14 @@
 import requests
 import sys
 
+#getting url response using requests API
 def get_responses(url):
 
 	r = requests.get(url)
 	response = r.json()
 	return response['total_count']
 
+#main function
 if __name__ == '__main__':
 
 	statistics = {}
