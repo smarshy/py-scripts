@@ -43,6 +43,7 @@ if __name__ == '__main__':
 
 	for repo in repositories:
 		url_for_repo = "https://api.github.com/repos/" + str(repo) + "/stats/commit_activity" 
+		try:
 			data = get_response(url_for_repo)
 			if data:
 				recent = [data[-1]['days'], data[-2]['days'], data[-3]['days'], data[-4]['days']]
