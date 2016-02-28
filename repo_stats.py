@@ -29,7 +29,22 @@ if __name__ == '__main__':
 		if not repo['fork'] and not repo['private']:
 			repositories.append(str(repo['full_name']))
 
-	print repositories 
+	print repositories
+
+	for repo in repositories:
+		url_for_repo = "https://api.github.com/repos/" + str(repo) + "/stats/commit_activity" 
+		print repo
+		try:
+			data = get_response(url_for_repo)
+			if data:
+				recent = [data[-1]['days'], data[-2]['days'], data[-3]['days'], data[-4]['days']]
+				print recent
+			else:
+				print "Slow Internet Connection"
+		except:
+			print "Error in internet connection"
+			sys.exit()
+	 
 
 
 
