@@ -23,5 +23,26 @@ Uses python package for quora to fetch user stats and perform a simple activity 
 
 Uses [zippopotam API](http://www.zippopotam.us/) location details based on zipcode and country code
 
+## Github scripts
 
+The following directly interact with [github API](https://developer.github.com/v3/) to fetch data.
 
+### py_git.py
+
+Presents an analysis of pull requests and issues for entered username
+
+### list_contributions.py
+
+Presents a list of links to contributed PRs and Issues for entered username
+
+### list_contributions_repo.py
+
+Presents a filtered list of links to contributed PRs and Issues for a user as per entered repository details
+
+### git_language.py
+
+Presents an analysis of languages vs repository count for entered username
+
+### repo_stats.py
+
+Get your commit frequency on different days of the week over a period of one month
