@@ -20,6 +20,7 @@ def main():
 		page = wikipedia.page(page_name)
 		details = {'Topic' : page.title, 'Url' : page.url, 'Number of links on the page' : len(page.links)}
 		stopwordlist = get_stopWord_list()
+		stopwordlist.extend(re.split('\W+', str(page.title).lower()))
 		print details
 		print stopwordlist
 	except:
