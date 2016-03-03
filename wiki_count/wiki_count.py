@@ -13,6 +13,12 @@ def get_stopWord_list():
 	inFile.close()
 	return stopwordlist
 
+#Returns list of all words in the content, excluding the stop words 
+def get_contentWord_list(content, stopwordlist):
+	contentwordlist = re.split('\W+', content)
+	consolidatedlist = [word for word in contentwordlist if word not in stopwordlist]
+	return consolidatedlist
+
 def main():
 	try:
 		wikipedia.set_lang("en")
@@ -21,8 +27,8 @@ def main():
 		details = {'Topic' : page.title, 'Url' : page.url, 'Number of links on the page' : len(page.links)}
 		stopwordlist = get_stopWord_list()
 		stopwordlist.extend(re.split('\W+', str(page.title).lower()))
-		print details
-		print stopwordlist
+		contentwordlist = get_contentWord_list(page.content.encode('utf-8').lower(), stopwordlist)
+		print contentwordlist
 	except:
 		print "Invalid page entered or no internet connection"
 
