@@ -1,5 +1,6 @@
 import string
 import re
+from collections import Counter
 
 import wikipedia
 
@@ -19,6 +20,19 @@ def get_contentWord_list(content, stopwordlist):
 	consolidatedlist = [word for word in contentwordlist if word not in stopwordlist]
 	return consolidatedlist
 
+#Returns a sorted list of 10 most common words with their frequency
+def get_word_frequency(contentwordlist):
+	return Counter(contentwordlist).most_common(10)
+
+#Displays content analysis details for the page
+def display_content_analysis(details, wordfreq):
+	print "\nPage Details:\n"
+	for key, value in details.iteritems(): 
+		print str(key) + " : " + str(value)
+	print "\nThe following are the ten most common words on the page along with their frequencies:\n"	
+	for key,value in wordfreq:
+		print str(key) + " - " + str(value)
+
 def main():
 	try:
 		wikipedia.set_lang("en")
@@ -28,7 +42,8 @@ def main():
 		stopwordlist = get_stopWord_list()
 		stopwordlist.extend(re.split('\W+', str(page.title).lower()))
 		contentwordlist = get_contentWord_list(page.content.encode('utf-8').lower(), stopwordlist)
-		print contentwordlist
+		wordfreq = get_word_frequency(contentwordlist)
+		display_content_analysis(details, wordfreq)
 	except:
 		print "Invalid page entered or no internet connection"
 
