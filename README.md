@@ -10,7 +10,7 @@ You can search for any movie/TV show using keywords and an optional page number.
 
 Give it a word and it shall find all the rhyming words for you. Uses the [Wordnik API](https://wordnik.com/)
 
-### review_sentiment
+## review_sentiment
 
 Contains nykaa_review.py - a script which analyses sentiments based on recently published reviews for a particular product page on [nykaa](http://nykaa.com)
 I have put together a list of positive and negative words by surveying the website reviews as well as by referring to general such available lists
@@ -46,3 +46,11 @@ Presents an analysis of languages vs repository count for entered username
 ### repo_stats.py
 
 Get your commit frequency on different days of the week over a period of one month
+
+## random_user
+
+This is extremely useful if you just need dummy credentials to check something. Enter the number of entries you need and the random_user.py script will fetch it for you from [Random User](https://randomuser.me/) API. Open the generated.txt file then to check out the fetched details
+
+## wiki_count
+
+Run wiki_count.py to find the most common word in a valid wikipedia page :D
